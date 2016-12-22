@@ -1,0 +1,265 @@
+﻿<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>window.$ = window.jQuery = require('./jquery.min.js')</script>
+    <script>require('./bootstrap.min.js')</script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>
+            工作计划
+        </h1>
+    </div>
+    <div id="container">
+        <div id="menu">
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapseOne">
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="paper" id="jbqk">
+                <h2 class="text-center">全乡贫困户基本情况</h2>
+                <hr>
+                <table id="jbqk_tb" class="table table-bordered table-striped">
+                    <tr>
+                        <th>村别</th><th>贫困户数</th><th>一般贫困户</th><th>低保户</th><th>一般疾病</th><th>大病</th><th>残疾</th><th>中共党员</th><th>文盲</th><th>小学</th><th>初中</th><th>高中</th><th>大专以上</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="paper" id="tpjh">
+                <h2 class="text-center">全乡总体预计脱贫计划汇总</h2>
+                <hr>
+                <table id="tpjh_tb" class="table table-bordered table-striped">
+                    <tr><th>村别</th><th>2016 户数</th><th>2017 户数</th><th>2018 户数</th><th>2019 户数</th><th>合计户数</th></tr>
+                </table>
+            </div>
+            <div class="paper" id="zpyy">
+                <h2 class="text-center">全乡总体致贫原因汇总</h2>
+                <hr>
+                <table id="zpyy_tb" class="table table-bordered table-striped">
+                    <tr><th>村别</th><th>因病</th><th>因残</th><th>因学</th><th>缺土地</th><th>缺水</th><th>缺技术</th><th>缺劳力</th><th>缺资金</th><th>交通条件落后</th><th>自身发展动力不足</th><th>因灾</th><th>因婚</th></tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div id="footer">
+        <div id="home">
+            <a href="index.html"><button class="btn btn-primary">
+                <span class="glyphicon glyphicon-home"></span>
+            </button></a>
+        </div>
+        <div id="nav">
+            <a href="baseinfo.html"><button class="btn btn-success">基本情况介绍</button></a>
+            <a href="statistics.html"><button class="btn btn-success" disabled="disabled">工作计划</button></a>
+            <a href="bignews.html"><button class="btn btn-success">乡大事记</button></a>
+        </div>
+        <div id="exit">
+            <button class="btn btn-danger">
+                <span class="glyphicon glyphicon-off"></span>
+            </button>
+        </div>
+    </div>
+
+
+
+    <script>
+        var sqlite3 = require('sqlite3')
+        var db = new sqlite3.Database('data.db');
+
+        var town = $('#menu').find('.panel-group');
+        var collapse = town.find('.panel').clone();
+        town.find('.collapse').attr('id', 'town-0');
+        town.find('a').attr('href', '#town-0');
+        town.find('a').text('小徳营子乡');
+        town.find('div.panel-body').html('<div class="panel-group" role="tablist" aria-multiselectable="true"></div>');
+        
+        var town_ul = $('<ul></ul>');
+        var jbqk_li = $('<li><a href="#">全乡贫困户基本情况</a></li>');
+        var tpjh_li = $('<li><a href="#">全乡总体脱贫计划汇总</a></li>');
+        var zpyy_li = $('<li><a href="#">全乡总体致贫原因汇总</a></li>');
+        var lwsc_li = $('<li><a href="#">全乡总体劳务输出汇总</a></li>');
+        var srqk_li = $('<li><a href="#">全乡总体收入情况汇总</a></li>');
+
+        town_ul.append(jbqk_li);
+        town_ul.append(tpjh_li); town_ul.append(zpyy_li); town_ul.append(lwsc_li); town_ul.append(srqk_li);
+        town.find('.panel-group').append(town_ul);
+
+        db.all('select * from `village`', function(err, rows) {
+            if(rows) {
+                rows.forEach(function(value) {
+                    var village = collapse.clone();
+                    village.find('.collapse').attr('id', 'village-' + value.name);
+                    village.find('a').attr('href', '#village-' + value.name);
+                    village.find('a').text(value.name);
+                    village.find('div.panel-body').html('<ul></ul>')
+                    town.find('.panel-group').append(village);
+                });
+            }
+        });
+        
+        db.all('select * from `person`', function(err, rows) {
+            if(rows) {
+                rows.forEach(function(value) {
+                    console.log(value.xingming);
+                    var person = $('<li><a href="#"></a></li>');
+                    person.find('a').text(value.xingming);
+                    person.click(function() {
+                        $('#xingming').text(value.xingming);
+                        $('#minzu').text(value.minzu);
+                        $('#zhen').text(value.zhen);
+                        $('#cun').text(value.cun);
+                        $('#jiankangqingkuang').text(value.jiankangqingkuang);
+                        $('#wenhuachengdu').text(value.wenhuachengdu);
+                        $('#lianxidianhua').text(value.lianxidianhua);
+                        $('#zhengzhimianmao').text(value.zhengzhimianmao);
+                        $('#pinkunhushuxing').text(value.pinkunhushuxing);
+                        $('#zhipinyuanyin').text(value.zhipinyuanyin);
+                        $('#yujituopinnianfen').text(value.yujituopinnianfen);
+                        $('#beizhu').text(value.beizhu);
+                    });
+                    $('#village-' + value.cun).find('ul').append(person);
+                });
+            }
+        });
+
+        /** 基本情况统计 **/
+        var jbqk_hz = [];
+        db.all('select * from `village`', function(err, rows) {
+            rows.forEach(function(value) {
+                var tags = ["'贫困户数'='贫困户数'", "`pinkunhushuxing`='一般贫困户'", "`pinkunhushuxing`='低保户'", "`jiankangqingkuang`='一般疾病'", "`jiankangqingkuang`='大病'", "`jiankangqingkuang`='残疾'", "`zhengzhimianmao`='中共党员'", "`wenhuachengdu`='文盲'", "`wenhuachengdu`='小学'", "`wenhuachengdu`='初中'", "`wenhuachengdu`='高中'", "`wenhuachengdu`='大专以上'"]
+                jbqk_hz[value.name] = []
+                tags.forEach(function(tag) {
+                    db.get("select count(*) num from `person` where `cun`='" + value.name + "' and " + tag, function(err, row) {
+                        jbqk_hz[value.name][tag] = row.num;
+                    });
+                });
+            });
+        });
+
+        jbqk_li.click(function() {
+            $('.paper').hide();
+            $('#jbqk').show();
+            var jbqk_tb = $('#jbqk_tb');
+            if(jbqk_tb.find('tr').length > 1)
+                return ;
+            var key_ths = jbqk_tb.find('th');
+            for(var k1 in jbqk_hz) {
+                var tr = $('<tr><td>' + k1 + '</td></tr>');
+                for(var k2 in jbqk_hz[k1]) {
+                    tr.append($('<td>' + jbqk_hz[k1][k2] + '</td>'));
+                }
+                jbqk_tb.append(tr);
+            }
+        });
+
+        /** 脱贫计划统计 */
+        var tpjh_hz = [];
+        db.all('select * from `village`', function(err, rows) {
+            rows.forEach(function(value) {
+                var tags = ['2016', '2017', '2018', '2019']
+                tpjh_hz[value.name] = []
+                tags.forEach(function(tag) {
+                    db.get("select count(*) num from `person` where `cun`='" + value.name + "' and `yujituopinnianfen`='" + tag + "'", function(err, row) {
+                        tpjh_hz[value.name][tag] = row.num;
+                    });
+                });
+            });
+        });
+
+
+        tpjh_li.click(function() {
+            $('.paper').hide();
+            $('#tpjh').show();
+            var tpjh_tb = $('#tpjh_tb');
+            if(tpjh_tb.find('tr').length > 1)
+                return ;
+            for(var k1 in tpjh_hz) {
+                var tr = $('<tr><td>' + k1 + '</td></tr>');
+                var sum = 0;
+                for(var k2 in tpjh_hz[k1]) {
+                    tr.append($('<td>' + tpjh_hz[k1][k2] + '</td>'));
+                    sum += parseInt(tpjh_hz[k1][k2]);
+                }
+                tr.append($('<td>' + sum + '</td>'));
+                tpjh_tb.append(tr);
+            }
+        });
+
+        /** 全乡总体致贫原因汇总 */
+        var zpyy_hz = [];
+        db.all('select * from `village`', function(err, rows) {
+            rows.forEach(function(value) {
+                var tags = ['因病', '因残', '因学', '缺土地', '缺水', '缺技术', '缺劳力', '缺资金', '交通条件落后', '自身发展动力不足', '因灾', '因婚']
+                zpyy_hz[value.name] = []
+                tags.forEach(function(tag) {
+                    db.get("select count(*) num from `person` where `cun`='" + value.name + "'and `zhipinyuanyin`='" + tag + "'", function(err, row) {
+                        zpyy_hz[value.name][tag] = row.num;
+                    });
+                })
+            })
+        })
+
+        zpyy_li.click(function() {
+            $('.paper').hide();
+            $('#zpyy').show();
+            var zpyy_tb = $('#zpyy_tb');
+            if(zpyy_tb.find('tr').length > 1)
+                return ;
+            var tags = ['因病', '因残', '因学', '缺土地', '缺水', '缺技术', '缺劳力', '缺资金', '交通条件落后', '自身发展动力不足', '因灾', '因婚']
+            for(var k1 in zpyy_hz) {
+                console.log(k1);
+                var tr = $('<tr><td>' + k1 + '</td></tr>');
+                for(var i = 0; i < tags.length; i++) {
+                    tr.append($('<td>' + zpyy_hz[k1][tags[i]] + '</td>'));
+                }
+                zpyy_tb.append(tr);
+            }
+        });
+
+        $('.paper').hide();
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,278 @@
+﻿<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>window.$ = window.jQuery = require('./jquery.min.js')</script>
+    <script>require('./bootstrap.min.js')</script>
+</head>
+<body>
+    <div id="header">
+        <h1>乡大事件</h1>
+    </div>
+    <div id="container">
+        <div id="menu">
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" aria-expanded="true">
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+        <div class="paper">
+			<h3>基本资料</h3>
+			<hr>
+            <input type="hidden" id="pid" value="">
+            <div class="row">
+                <div class="col-md-2">户主姓名：</div>
+                <div class="col-md-2"><span class="content" id="xingming"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">民族：</div>
+                <div class="col-md-2"><span class="content" id="minzu"><span></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">所在乡：</div>
+                <div class="col-md-2"><span class="content" id="zhen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">所在村：</div>
+                <div class="col-md-2"><span class="content" id="cun"><span></div>
+            </div>
+                        
+            <div class="row">
+                <div class="col-md-2">健康状况：</div>
+                <div class="col-md-2"><span class="content" id="jiankangqingkuang"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">文化程度：</div>
+                <div class="col-md-2"><span class="content" id="wenhuachengdu"><span></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">联系电话：</div>
+                <div class="col-md-2"><span class="content" id="lianxidianhua"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">政治面貌：</div>
+                <div class="col-md-2"><span class="content" id="zhengzhimianmao"><span></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">贫困户属性：</div>
+                <div class="col-md-2"><span class="content" id="pinkunhushuxing"><span></div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">致贫原因：</div>
+                <div class="col-md-2"><span class="content" id="zhipinyuanyin"><span></div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">预计脱贫年份：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">备注：</div>
+                <div class="col-md-2"><span class="content" id="beizhu"><span></div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <h3>2016 年种养栽项目</h3>
+            <hr>
+            <div class="row">
+                <div class="col-md-2">贷款：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">自筹资金：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">项目内容及规模：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+            </div>
+            <h3>其他信息</h3>
+            <hr>
+            <div class="row">
+                <div class="col-md-2">劳务输出：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">危房改造：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">其他脱贫项目：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">备注：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <h3>2016 年预计收入</h3>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-2">打工收入：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">在校生资助金：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">领取捐助资金：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">生产经营性收入：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">生态补偿金：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">土地流转收入：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">计划生育金：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">养老保险金：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">财产性收入：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">其他收入：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <h3>2016 年预计支出</h3>
+            <hr>
+            <div class="row">
+                <div class="col-md-2">生产经营性支出：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">教育支出：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">医疗支出：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">婚嫁支出：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">其他支出：</div>
+                <div class="col-md-2"><span class="content" id="yujituopinnianfen"><span></div>
+                <div class="col-md-1"></div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+    <div id="footer">
+        <div id="home">
+            <a href="index.html"><button class="btn btn-primary">
+                <span class="glyphicon glyphicon-home"></span>
+            </button></a>
+        </div>
+        <div id="nav">
+            <a href="baseinfo.html"><button class="btn btn-success">基本情况介绍</button></a>
+            <a href="statistics.html"><button class="btn btn-success">工作计划</button></a>
+            <a href="bignews.html"><button class="btn btn-success" disabled="disabled">乡大事记</button></a>
+        </div>
+        <div id="exit">
+            <button class="btn btn-danger">
+                <span class="glyphicon glyphicon-off"></span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        var sqlite3 = require('sqlite3')
+        var db = new sqlite3.Database('data.db');
+
+        var town = $('#menu').find('.panel-group');
+        var collapse = town.find('.panel').clone();
+        town.find('.collapse').attr('id', 'town-0');
+        town.find('a').attr('href', '#town-0');
+        town.find('a').text('小徳营子乡');
+        town.find('div.panel-body').html('<div class="panel-group" role="tablist" aria-multiselectable="true"></div>');
+
+        db.all('select * from `village`', function(err, rows) {
+            if(rows) {
+                rows.forEach(function(value) {
+                    var village = collapse.clone();
+                    village.find('.collapse').attr('id', 'village-' + value.name);
+                    village.find('a').attr('href', '#village-' + value.name);
+                    village.find('a').text(value.name);
+                    village.find('div.panel-body').html('<ul></ul>')
+                    town.find('.panel-group').append(village);
+                });
+            }
+        });
+        
+        db.all('select * from `person`', function(err, rows) {
+            if(rows) {
+                rows.forEach(function(value) {
+                    console.log(value.xingming);
+                    var person = $('<li><a href="#"></a></li>');
+                    person.find('a').text(value.xingming);
+                    person.click(function() {
+                        $('#xingming').text(value.xingming);
+                        $('#minzu').text(value.minzu);
+                        $('#zhen').text(value.zhen);
+                        $('#cun').text(value.cun);
+                        $('#jiankangqingkuang').text(value.jiankangqingkuang);
+                        $('#wenhuachengdu').text(value.wenhuachengdu);
+                        $('#lianxidianhua').text(value.lianxidianhua);
+                        $('#zhengzhimianmao').text(value.zhengzhimianmao);
+                        $('#pinkunhushuxing').text(value.pinkunhushuxing);
+                        $('#zhipinyuanyin').text(value.zhipinyuanyin);
+                        $('#yujituopinnianfen').text(value.yujituopinnianfen);
+                        $('#beizhu').text(value.beizhu);
+                    });
+                    $('#village-' + value.cun).find('ul').append(person);
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
