@@ -10,6 +10,6 @@ db.exec("create table if not exists `person` (`id` integer primary key autoincre
 
 db.exec("create table if not exists `plan` (`id` integer primary key autoincrement,`person_id` integer,`xiangmuneirongjiguimo` text,`daikuan` text,`zichouzijin` text,`qita` text,`laowushuchu` text,`weifanggaizaojihua` text,`qitatuopinxiangmu` text,`beizhu` text,	`dagongshouru` text,`nianlingqudibaojin` text,`zaixiaoshengnianzizhujin` text,`lingqujuanzhuzijin` text,`shengchanjingyingxingshouru` text,`shengtaibuchangjin` text,`tudiliuzhuanshouru` text,`jihuashengyujin` text,`yanglaobaoxianjin` text,`caichanxingshouru` text,`qitashouru` text,`shengchanjingyingxingzhichu` text,`jiaoyuzhichu` text,`yiliaozhichu` text,`hunjiazhichu` text,`qitazhichu` text,`renjunshouru` text,	`nianfen` text);");
 
-
+db.exec("create table if not exists `town` (`id` integer primary key autoincrement,`type` text,`title` text,`content` text);");
 
 

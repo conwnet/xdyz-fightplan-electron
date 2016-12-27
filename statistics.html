@@ -50,11 +50,35 @@
                     <tr><th>村别</th><th>2016 户数</th><th>2017 户数</th><th>2018 户数</th><th>2019 户数</th><th>合计户数</th></tr>
                 </table>
             </div>
+
             <div class="paper" id="zpyy">
                 <h2 class="text-center">全乡总体致贫原因汇总</h2>
                 <hr>
                 <table id="zpyy_tb" class="table table-bordered table-striped">
                     <tr><th>村别</th><th>因病</th><th>因残</th><th>因学</th><th>缺土地</th><th>缺水</th><th>缺技术</th><th>缺劳力</th><th>缺资金</th><th>交通条件落后</th><th>自身发展动力不足</th><th>因灾</th><th>因婚</th></tr>
+                </table>
+            </div>
+
+            <div class="paper" id="lwsc">
+                <h2 class="text-center">全乡劳务输出汇总</h2>
+                <hr>
+                <table id="lwsc_tb" class="table table-bordered table-striped">
+                    <tr><th>村别</th><th>临时外出</th><th>常年外出</th><th>维修</th><th>翻房</th></tr>
+                </table>
+            </div>
+            
+            <div class="paper" id="srqk">
+                <h2 class="text-center">全乡总体收入汇总</h2>
+                <hr>
+                <table id="srqk_tb" class="table table-bordered table-striped">
+                    <tr><th>村别</th><th>户主姓名</th><th>打工收入</th><th>年领取低保金</th><th>在校生资助金</th><th>领取捐助资金</th><th>生产经营性收入</th><th>生态补偿金</th><th>土地流转收入</th><th>计划生育金</th><th>养老保险金</th><th>财产性收入</th><th>其他收入</th><th>合计</th><th>生产经营性支出</th><th>教育支出</th><th>医疗支出</th><th>婚嫁支出</th><th>其他支出</th><th>合计</th></tr>
+                </table>
+            </div>
+
+            <div class="paper" id="yjtp">
+                <h2 class="text-center">预计脱贫名单</h2>
+                <hr>
+                <table id="yjtp_tb" class="table table-bordered table-striped">
                 </table>
             </div>
 
@@ -109,36 +133,28 @@
                     village.find('.collapse').attr('id', 'village-' + value.name);
                     village.find('a').attr('href', '#village-' + value.name);
                     village.find('a').text(value.name);
-                    village.find('div.panel-body').html('<ul></ul>')
+                    village.find('div.panel-body').html('<ul village="' + value.name + '"><li class="tuopinmingdan" nianfen="2016"><a href="#">2016 年预计脱贫名单</a></li><li class="tuopinmingdan" nianfen="2017"><a href="#">2017 年预计脱贫名单</a></li><li class="tuopinmingdan" nianfen="2018"><a href="#">2018 年预计脱贫名单</a></li class="tuopinmingdan" nianfen="2019"><a href="#"><li>2019 年预计脱贫名单</a></li></ul>')
+                        
                     town.find('.panel-group').append(village);
                 });
             }
+            
+            $('.tuopinmingdan').click(function() {
+            $('.paper').hide();
+                $('#yjtp').show();
+                yjtp_tb = $('#yjtp_tb');
+                yjtp_tb.empty();
+                yjtp_tb.append($('<tr><th>姓名</th><th>村别</th><th>预计脱贫年份</th></tr>'));
+
+                db.all("select * from `person` where `cun`=? and `yujituopinnianfen`=?", $(this).parent().attr('village'), $(this).attr('nianfen'), function(err, rows) {
+                    rows.forEach(function(row) {
+                        var tr = $('<tr><td>' + row.cun + '</td><td>' + row.xingming + '</td><td>' + row.yujituopinnianfen + '</td></tr>');
+                        yjtp_tb.append(tr);
+                    });
+                });
+            });
         });
         
-        db.all('select * from `person`', function(err, rows) {
-            if(rows) {
-                rows.forEach(function(value) {
-                    console.log(value.xingming);
-                    var person = $('<li><a href="#"></a></li>');
-                    person.find('a').text(value.xingming);
-                    person.click(function() {
-                        $('#xingming').text(value.xingming);
-                        $('#minzu').text(value.minzu);
-                        $('#zhen').text(value.zhen);
-                        $('#cun').text(value.cun);
-                        $('#jiankangqingkuang').text(value.jiankangqingkuang);
-                        $('#wenhuachengdu').text(value.wenhuachengdu);
-                        $('#lianxidianhua').text(value.lianxidianhua);
-                        $('#zhengzhimianmao').text(value.zhengzhimianmao);
-                        $('#pinkunhushuxing').text(value.pinkunhushuxing);
-                        $('#zhipinyuanyin').text(value.zhipinyuanyin);
-                        $('#yujituopinnianfen').text(value.yujituopinnianfen);
-                        $('#beizhu').text(value.beizhu);
-                    });
-                    $('#village-' + value.cun).find('ul').append(person);
-                });
-            }
-        });
 
         /** 基本情况统计 **/
         var jbqk_hz = [];
@@ -148,7 +164,7 @@
                 jbqk_hz[value.name] = []
                 tags.forEach(function(tag) {
                     db.get("select count(*) num from `person` where `cun`='" + value.name + "' and " + tag, function(err, row) {
-                        jbqk_hz[value.name][tag] = row.num;
+                        jbqk_hz[value.name][tag.split("'")[1]] = row.num;
                     });
                 });
             });
@@ -160,10 +176,11 @@
             var jbqk_tb = $('#jbqk_tb');
             if(jbqk_tb.find('tr').length > 1)
                 return ;
-            var key_ths = jbqk_tb.find('th');
+                var tags = ["'贫困户数'='贫困户数'", "`pinkunhushuxing`='一般贫困户'", "`pinkunhushuxing`='低保户'", "`jiankangqingkuang`='一般疾病'", "`jiankangqingkuang`='大病'", "`jiankangqingkuang`='残疾'", "`zhengzhimianmao`='中共党员'", "`wenhuachengdu`='文盲'", "`wenhuachengdu`='小学'", "`wenhuachengdu`='初中'", "`wenhuachengdu`='高中'", "`wenhuachengdu`='大专以上'"]
             for(var k1 in jbqk_hz) {
                 var tr = $('<tr><td>' + k1 + '</td></tr>');
-                for(var k2 in jbqk_hz[k1]) {
+                for(var i = 0; i < tags.length; i++) {
+                    k2 = tags[i].split("'")[1];
                     tr.append($('<td>' + jbqk_hz[k1][k2] + '</td>'));
                 }
                 jbqk_tb.append(tr);
@@ -232,6 +249,83 @@
                 }
                 zpyy_tb.append(tr);
             }
+        });
+
+        /** 劳务输出汇总 **/
+        var lwsc_hz = [];
+        db.all('select * from `village`', function(err, rows) {
+            rows.forEach(function(value) {
+                var tags = ["`laowushuchu`='临时外出'", "`laowushuchu`='常年外出'", "`weifanggaizaojihua`='维修'", "`weifanggaizaojihua`='翻房'"]
+                lwsc_hz[value.name] = []
+                tags.forEach(function(tag) {
+                    db.get("select count(*) num from `plan`, `person` where person.id=plan.person_id and `cun`='" + value.name + "' and `nianfen`='2016' and " + tag, function(err, row) {
+                        lwsc_hz[value.name][tag.split("'")[1]] = row.num;
+                    });
+                })
+            })
+        })
+
+        lwsc_li.click(function() {
+            $('.paper').hide();
+            $('#lwsc').show();
+            var lwsc_tb = $('#lwsc_tb');
+            if(lwsc_tb.find('tr').length > 1)
+                return ;
+            var tags = ['临时外出', '常年外出', '维修', '翻房']
+            for(var k1 in lwsc_hz) {
+                var tr = $('<tr><td>' + k1 + '</td></tr>');
+                for(var i = 0; i < tags.length; i++) {
+                    tr.append($('<td>' + lwsc_hz[k1][tags[i]] + '</td>'));
+                }
+                lwsc_tb.append(tr);
+            }
+        });
+
+        /** 收入情况汇总 **/
+        var srqk_hz = [];
+        db.all("select * from `plan`, `person` where person.id=plan.person_id and `nianfen`='2016'", function(err, rows) {
+            rows.forEach(function(row) {
+                srqk_hz.push(row);
+                console.log(row.cun);
+            });
+        });
+
+        srqk_li.click(function() {
+            $('.paper').hide();
+            $('#srqk').show();
+            var srqk_tb = $('#srqk_tb');
+            if(srqk_tb.find('tr').length > 1)
+                return ;
+            for(var i = 0; i < srqk_hz.length; i++) {
+                srqk = srqk_hz[i];
+                var tr = $('<tr><td>' + srqk['cun'] + '</td><td>' + srqk['xingming'] + '</td></tr>');
+                var sum = 0;
+                var tags = ['dagongshouru', 'nianlingqudibaojin', 'zaixiaoshengnianzizhujin', 'lingqujuanzhuzijin', 'shengchanjingyingxingshouru', 'shengtaibuchangjin', 'tudiliuzhuanshouru', 'jihuashengyujin', 'yanglaobaoxianjin', 'caichanxingshouru', 'qitashouru']
+                for(var tag in tags) {
+                    tr.append($('<td>' + (srqk[tag] || 0) + '</td>'));
+                    sum += parseInt(srqk[tag] || 0);
+                    srqk_tb.append(tr);
+                }
+                tr.append($('<td>' + sum + '</td>'));
+                srqk_tb.append(tr);
+                sum = 0;
+                tags = ['shengchanjingyingxingzhichu', 'jiaoyuzhichu', 'yiliaozhichu', 'hunjiazhichu', 'qitazhichu']
+                for(var tag in tags) {
+                    tr.append($('<td>' + (srqk[tag] || 0) + '</td>'));
+                    sum += parseInt(srqk[tag] || 0);
+                    srqk_tb.append(tr);
+                }
+                tr.append($('<td>' + sum + '</td>'));
+                srqk_tb.append(tr);
+            }
+
+        });
+
+        /** 各村预计脱贫名单 **/
+        
+        $('.tuopinmingdan').click(function() {
+            console.log('haha');
+            //console.log($(this).attr('nianfen'));
         });
 
         $('.paper').hide();

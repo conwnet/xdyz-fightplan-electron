@@ -5,6 +5,13 @@
     <link rel="stylesheet" href="css/style.css">
     <script>window.$ = window.jQuery = require('./jquery.min.js')</script>
     <script>require('./bootstrap.min.js')</script>
+    <link href="themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+
+    <script>
+        require('./umeditor.config.js');
+        require('./umeditor.min.js');
+        require('./lang/zh-cn/zh-cn.js');
+    </script>
 </head>
 <body>
     <div id="header">
@@ -28,225 +35,234 @@
             </div>
         </div>
         <div id="content">
-        <div class="paper">
-			<h3>基本资料</h3>
-			<hr>
-            <input type="hidden" id="id" value="">
-            <div class="row">
-                <div class="col-md-2">户主姓名：</div>
-                <div class="col-md-2"><input class="content" id="xingming"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">民族：</div>
-                <div class="col-md-2"><input class="content" id="minzu"></input></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2">所在乡：</div>
-                <div class="col-md-2">
-                    <select id="zhen">
-					    <option value ="小德营子乡">小德营子乡</option>
-					</select>
-
+            <div class="paper" id="baseinfo">
+    			<h3>基本资料</h3>
+    			<hr>
+                <input type="hidden" id="id" value="">
+                <div class="row">
+                    <div class="col-md-2">户主姓名：</div>
+                    <div class="col-md-2"><input class="content" id="xingming"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">民族：</div>
+                    <div class="col-md-2"><input class="content" id="minzu"></input></div>
                 </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">所在村：</div>
-                <div class="col-md-2"><select id="cun">
-										  <option value ="新立屯村">新立屯村</option>
-										  <option value ="双榆树村">双榆树村</option>
-										  <option value ="一间楼村">一间楼村</option>
-										  <option value ="贾家屯村">贾家屯村</option>
-										  <option value ="腰营子村">腰营子村</option>
-										  <option value ="大石桥村">大石桥村</option>
-										  <option value ="莲花山村">莲花山村</option>
-										  <option value ="公立亨村">公立亨村</option>
-										  <option value ="东大门村">东大门村</option>
-										  <option value ="冷家店村">冷家店村</option>
-										</select></div>
-            </div>
-                        
-            <div class="row">
-                <div class="col-md-2">健康状况：</div>
-                <div class="col-md-2"><select id="jiankangqingkuang">
-										  <option value ="健康">健康</option>
-										  <option value ="一般疾病">一般疾病</option>
-										  <option value ="大病">大病</option>
-										  <option value ="残疾">残疾</option>
-										</select>
-</div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">文化程度：</div>
-                <div class="col-md-2"><select id="wenhuachengdu">
-										  <option value ="文盲">文盲</option>
-										  <option value ="小学">小学</option>
-										  <option value ="初中">初中</option>
-										  <option value ="高中">高中</option>
-										  <option value ="大专以上">大专以上</option>
-										</select></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2">联系电话：</div>
-                <div class="col-md-2"><input class="content" id="lianxidianhua"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">政治面貌：</div>
-                <div class="col-md-2"><select id="zhengzhimianmao">
-										  <option value ="中共党员">中共党员</option>
-										  <option value ="其他">其他</option>
-										</select></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2">贫困户属性：</div>
-                <div class="col-md-2"><select id="pinkunhushuxing">
-										  <option value ="一般贫困户">一般贫困户</option>
-										  <option value ="低保户">低保户</option>
-										</select></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">致贫原因：</div>
-                <div class="col-md-2"><select id="zhipinyuanyin">
-										  <option value ="因病">因病</option>
-										  <option value ="因残">因残</option>
-										  <option value ="因学">因学</option>
-										  <option value ="缺土地">缺土地</option>
-										  <option value ="缺水">缺水</option>
-										  <option value ="缺技术">缺技术</option>
-										  <option value ="缺劳力">缺劳力</option>
-										  <option value ="缺资金">缺资金</option>
-										  <option value ="交通条件落后">交通条件落后</option>
-										  <option value ="自身发展动力不足">自身发展动力不足</option>
-										  <option value ="因灾">因灾</option>
-										  <option value ="因婚">因婚</option>
-										</select></div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-2">预计脱贫年份：</div>
-                <div class="col-md-2"><select id="nianfen">
-										  <option value ="2016">2016</option>
-										  <option value ="2017">2017</option>
-										  <option value ="2018">2018</option>
-										  <option value ="2019">2019</option>
-										  <option value ="2020">2020</option>
-										</select></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">备注：</div>
-                <div class="col-md-2">
-                    <input class="content" id="beizhu"></input>
+    
+                <div class="row">
+                    <div class="col-md-2">所在乡：</div>
+                    <div class="col-md-2">
+                        <select id="zhen">
+    					    <option value ="小德营子乡">小德营子乡</option>
+    					</select>
+    
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">所在村：</div>
+                    <div class="col-md-2"><select id="cun">
+    										  <option value ="新立屯村">新立屯村</option>
+    										  <option value ="双榆树村">双榆树村</option>
+    										  <option value ="一间楼村">一间楼村</option>
+    										  <option value ="贾家屯村">贾家屯村</option>
+    										  <option value ="腰营子村">腰营子村</option>
+    										  <option value ="大石桥村">大石桥村</option>
+    										  <option value ="莲花山村">莲花山村</option>
+    										  <option value ="公立亨村">公立亨村</option>
+    										  <option value ="东大门村">东大门村</option>
+    										  <option value ="冷家店村">冷家店村</option>
+    										</select></div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-1">
-                    <button id="saveBaseInfo" class="btn btn-success">保存</button>
-                </div>
-            </div>
-
-            <h3>种养栽项目
-                <select>
-				    <option value ="2016">2016</option>
-				    <option value ="2017">2017</option>
-				    <option value ="2018">2018</option>
-				    <option value ="2019">2019</option>
-                </select>
-            </h3>
-            <hr>
-            <div class="row">
-                <div class="col-md-2">贷款：</div>
-                <div class="col-md-2"><input class="content" id="daikuan"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">自筹资金：</div>
-                <div class="col-md-2"><input class="content" id="zichouzijin"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">项目内容及规模：</div>
-                <div class="col-md-2"><input class="content" id="xiangmuneirongjiguimo"></input></div>
-                <div class="col-md-1"></div>
-            </div>
-            <h3>其他信息</h3>
-            <hr>
-            <div class="row">
-                <div class="col-md-2">劳务输出：</div>
-                <div class="col-md-2"><input class="content" id="laowushuchu"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">危房改造：</div>
-                <div class="col-md-2"><input class="content" id="weifanggaizaojihua"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">其他脱贫项目：</div>
-                <div class="col-md-2"><input class="content" id="qitatuopinxiangmu"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">备注：</div>
-                <div class="col-md-2"><input class="content" id="pbeizhu"></input></div>
-            </div>
-            <h3>预计收入</h3>
-            <hr>
-
-            <div class="row">
-                <div class="col-md-2">打工收入：</div>
-                <div class="col-md-2"><input class="content" id="dagongshouru"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">在校生年资助金：</div>
-                <div class="col-md-2"><input class="content" id="zaixiaoshengnianzizhujin"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">领取捐助资金：</div>
-                <div class="col-md-2"><input class="content" id="lingqujuanzhuzijin"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">生产经营性收入：</div>
-                <div class="col-md-2"><input class="content" id="shengchanjingyingxingshouru"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">生态补偿金：</div>
-                <div class="col-md-2"><input class="content" id="shengtaibuchangjin"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">土地流转收入：</div>
-                <div class="col-md-2"><input class="content" id="tudiliuzhuanshouru"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">计划生育金：</div>
-                <div class="col-md-2"><input class="content" id="jihuashengyujin"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">养老保险金：</div>
-                <div class="col-md-2"><input class="content" id="yanglaobaoxianjin"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">财产性收入：</div>
-                <div class="col-md-2"><input class="content" id="caichanxingshouru"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">其他收入：</div>
-                <div class="col-md-2"><input class="content" id="qitashouru"></input></div>
-            </div>
-            <h3>预计支出</h3>
-            <hr>
-            <div class="row">
-                <div class="col-md-2">生产经营性支出：</div>
-                <div class="col-md-2"><input class="content" id="shengchanjingyingxingzhichu"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">教育支出：</div>
-                <div class="col-md-2"><input class="content" id="jiaoyuzhichu"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">医疗支出：</div>
-                <div class="col-md-2"><input class="content" id="yiliaozhichu"></input></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">婚嫁支出：</div>
-                <div class="col-md-2"><input class="content" id="hunjiazhichu"></input></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">其他支出：</div>
-                <div class="col-md-2"><input class="content" id="qitazhichu"></input></div>
-                <div class="col-md-1"></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-1">
-                    <button id="savePlan" class="btn btn-success">保存</button>
-                </div>
-            </div>
-
-        </div>
+                            
+                <div class="row">
+                    <div class="col-md-2">健康状况：</div>
+                    <div class="col-md-2"><select id="jiankangqingkuang">
+    										  <option value ="健康">健康</option>
+    										  <option value ="一般疾病">一般疾病</option>
+    										  <option value ="大病">大病</option>
+    										  <option value ="残疾">残疾</option>
+    										</select>
     </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">文化程度：</div>
+                    <div class="col-md-2"><select id="wenhuachengdu">
+    										  <option value ="文盲">文盲</option>
+    										  <option value ="小学">小学</option>
+    										  <option value ="初中">初中</option>
+    										  <option value ="高中">高中</option>
+    										  <option value ="大专以上">大专以上</option>
+    										</select></div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-2">联系电话：</div>
+                    <div class="col-md-2"><input class="content" id="lianxidianhua"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">政治面貌：</div>
+                    <div class="col-md-2"><select id="zhengzhimianmao">
+    										  <option value ="中共党员">中共党员</option>
+    										  <option value ="其他">其他</option>
+    										</select></div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-2">贫困户属性：</div>
+                    <div class="col-md-2"><select id="pinkunhushuxing">
+    										  <option value ="一般贫困户">一般贫困户</option>
+    										  <option value ="低保户">低保户</option>
+    										</select></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">致贫原因：</div>
+                    <div class="col-md-2"><select id="zhipinyuanyin">
+    										  <option value ="因病">因病</option>
+    										  <option value ="因残">因残</option>
+    										  <option value ="因学">因学</option>
+    										  <option value ="缺土地">缺土地</option>
+    										  <option value ="缺水">缺水</option>
+    										  <option value ="缺技术">缺技术</option>
+    										  <option value ="缺劳力">缺劳力</option>
+    										  <option value ="缺资金">缺资金</option>
+    										  <option value ="交通条件落后">交通条件落后</option>
+    										  <option value ="自身发展动力不足">自身发展动力不足</option>
+    										  <option value ="因灾">因灾</option>
+    										  <option value ="因婚">因婚</option>
+    										</select></div>
+    
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-2">预计脱贫年份：</div>
+                    <div class="col-md-2"><select id="nianfen">
+    										  <option value ="2016">2016</option>
+    										  <option value ="2017">2017</option>
+    										  <option value ="2018">2018</option>
+    										  <option value ="2019">2019</option>
+    										  <option value ="2020">2020</option>
+    										</select></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">备注：</div>
+                    <div class="col-md-2">
+                        <input class="content" id="beizhu"></input>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-1">
+                        <button id="saveBaseInfo" class="btn btn-success">保存</button>
+                    </div>
+                </div>
+    
+                <h3>种养栽项目
+                    <select>
+    				    <option value ="2016">2016</option>
+    				    <option value ="2017">2017</option>
+    				    <option value ="2018">2018</option>
+    				    <option value ="2019">2019</option>
+                    </select>
+                </h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2">贷款：</div>
+                    <div class="col-md-2"><input class="content" id="daikuan"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">自筹资金：</div>
+                    <div class="col-md-2"><input class="content" id="zichouzijin"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">项目内容及规模：</div>
+                    <div class="col-md-2"><input class="content" id="xiangmuneirongjiguimo"></input></div>
+                    <div class="col-md-1"></div>
+                </div>
+                <h3>其他信息</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2">劳务输出：</div>
+                    <div class="col-md-2"><input class="content" id="laowushuchu"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">危房改造：</div>
+                    <div class="col-md-2"><input class="content" id="weifanggaizaojihua"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">其他脱贫项目：</div>
+                    <div class="col-md-2"><input class="content" id="qitatuopinxiangmu"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">备注：</div>
+                    <div class="col-md-2"><input class="content" id="pbeizhu"></input></div>
+                </div>
+                <h3>预计收入</h3>
+                <hr>
+    
+                <div class="row">
+                    <div class="col-md-2">打工收入：</div>
+                    <div class="col-md-2"><input class="content" id="dagongshouru"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">在校生年资助金：</div>
+                    <div class="col-md-2"><input class="content" id="zaixiaoshengnianzizhujin"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">领取捐助资金：</div>
+                    <div class="col-md-2"><input class="content" id="lingqujuanzhuzijin"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">生产经营性收入：</div>
+                    <div class="col-md-2"><input class="content" id="shengchanjingyingxingshouru"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">生态补偿金：</div>
+                    <div class="col-md-2"><input class="content" id="shengtaibuchangjin"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">土地流转收入：</div>
+                    <div class="col-md-2"><input class="content" id="tudiliuzhuanshouru"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">计划生育金：</div>
+                    <div class="col-md-2"><input class="content" id="jihuashengyujin"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">养老保险金：</div>
+                    <div class="col-md-2"><input class="content" id="yanglaobaoxianjin"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">财产性收入：</div>
+                    <div class="col-md-2"><input class="content" id="caichanxingshouru"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">其他收入：</div>
+                    <div class="col-md-2"><input class="content" id="qitashouru"></input></div>
+                </div>
+                <h3>预计支出</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2">生产经营性支出：</div>
+                    <div class="col-md-2"><input class="content" id="shengchanjingyingxingzhichu"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">教育支出：</div>
+                    <div class="col-md-2"><input class="content" id="jiaoyuzhichu"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">医疗支出：</div>
+                    <div class="col-md-2"><input class="content" id="yiliaozhichu"></input></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">婚嫁支出：</div>
+                    <div class="col-md-2"><input class="content" id="hunjiazhichu"></input></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">其他支出：</div>
+                    <div class="col-md-2"><input class="content" id="qitazhichu"></input></div>
+                    <div class="col-md-1"></div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-1">
+                        <button id="savePlan" class="btn btn-success">保存</button>
+                    </div>
+                </div>
+    
+            </div>
+            <div class="paper" id="editor">
+                <input type="hidden" id="article_type" value="">
+                <input type="hidden" id="article_id" value="">
+                <input type="text" class="form-control" id="article_title" placeholder="文章标题"><br>
+                <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+                    <p>这里我可以写一些文字</p>
+                </script>
+                <button id="editor_save" class="btn btn-success">提交</button>
+            </div>
+        </div>
     </div>
     <div id="footer">
         <div id="home">
@@ -267,6 +283,9 @@
     </div>
 
     <script>
+
+        var um = UM.getEditor('myEditor');
+
         var sqlite3 = require('sqlite3')
         var db = new sqlite3.Database('data.db');
 
@@ -276,8 +295,33 @@
         town.find('a').attr('href', '#town-0');
         town.find('a').text('小徳营子乡');
         town.find('div.panel-body').html('<div class="panel-group" role="tablist" aria-multiselectable="true"></div>');
-
-        db.all('select * from `village`', function(err, rows) {
+        var bignews = collapse.clone();
+        bignews.find('a').attr('href', '#bignews');
+        bignews.find('.collapse').attr('id', 'bignews');
+        bignews.find('a').text('乡大事件');
+        db.all('select * from `town`', function(err, rows) {
+            var bignews_ul = $('<ul></ul>');
+            rows.forEach(function(row) {
+                var article_li = $('<li class="article-li" aid="' + row.id + '"><a href="#">' + row.title + '</a></li>');
+                article_li.click(function() {
+                    $('.paper').hide();
+                    $('#editor').show();
+                    $('#article_id').val(row.id);
+                    $('#article_title').val(row.title);
+                    um.setContent(row.content);
+                });
+                bignews_ul.append(article_li);
+            });
+            var bignews_add_btn = $('<li><button id="bignews_add">添加</button></li>');
+            bignews_add_btn.click(function() {
+                $('.paper').hide();
+                $('#editor').show();
+            });
+            bignews_ul.append(bignews_add_btn);
+            bignews.append(bignews_ul);
+            town.find('.panel-group').append(bignews);
+        });
+                db.all('select * from `village`', function(err, rows) {
             if(rows) {
                 rows.forEach(function(value) {
                     var village = collapse.clone();
@@ -390,6 +434,25 @@
 			    }
             });
         });
+
+
+        $('#editor_save').click(function() {
+            var title = $('#article_title').val();
+            var content = um.getContent();
+            var type = $('#article_type').val();
+            if($('#article_id').val() == '') {
+                db.run("insert into `town` (`title`, `content`, `type`) values (?, ?, ?)", title, content, type);
+                $('#article_title').val('');
+                um.setContent('');
+                alert('添加成功！');
+            } else {
+                db.run("update `town` set `title`=?, `content`=?", title, content);
+                alert('更新成功！');
+            }
+        });
+
+        $('.article-li').click(function() {
+                    });
 
     </script>
 </body>
