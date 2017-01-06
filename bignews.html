@@ -29,9 +29,11 @@
             </div>
         </div>
         <div id="content">
-        <div class="paper">
-			<h3 style="text-align: center;">基本资料</h3>
-			
+        <div class="paper" id="article">
+			<h3 style="text-align: center;"></h3>
+            <hr>
+			<div>
+            </div>
         </div>
     </div>
     </div>
@@ -69,6 +71,11 @@
             rows.forEach(function(row) {
                 var li = $('<li><a href="#">' + row.title + '</a></li>');
                 ul.append(li);
+                li.click(function() {
+                    $('#article').find('h3').text(row.title);
+                    $('#article').find('div').html(row.content);
+                    
+                });
             });
         });
         
