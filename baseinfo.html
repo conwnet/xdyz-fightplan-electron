@@ -28,7 +28,7 @@
             </div>
         </div>
         <div id="content">
-        <div class="paper">
+        <div id="baseInfo" class="paper">
 			<h3>基本资料</h3>
 			<hr>
             <input type="hidden" id="pid" value="">
@@ -180,6 +180,12 @@
 
 
         </div>
+        <div class="paper" id="article">
+			<h3 style="text-align: center;"></h3>
+            <hr>
+			<div>
+            </div>
+        </div>
     </div>
     </div>
     <div id="footer">
@@ -190,8 +196,8 @@
         </div>
         <div id="nav">
             <a href="baseinfo.html"><button class="btn btn-success" disabled="disabled">基本情况介绍</button></a>
-            <a href="statistics.html"><button class="btn btn-success">工作计划</button></a>
-            <a href="bignews.html"><button class="btn btn-success">乡大事记</button></a>
+            <a href="statistics.html"><button class="btn btn-success">扶贫攻坚计划</button></a>
+            <a href="bignews.html"><button class="btn btn-success">扶贫攻坚大事记</button></a>
         </div>
         <div id="exit">
             <button class="btn btn-danger">
@@ -211,7 +217,7 @@
         town.find('a').text('小徳营子乡');
         town.find('div.panel-body').html('<div class="panel-group" role="tablist" aria-multiselectable="true"></div>');
 
-        var town_desc = $('<ul><li><a href="#">乡情介绍</a></li><li><a href="#">乡班子介绍</a></li></ul>');
+        var town_desc = $('<ul><li><a href="#" onclick="load_article(1)">乡情介绍</a></li><li><a href="#" onclick="load_article(2)">乡班子介绍</a></li></ul>');
         town.find('.panel-group').append(town_desc);
 
         db.all('select * from `village`', function(err, rows) {
@@ -222,7 +228,7 @@
                     village.find('a').attr('href', '#village-' + value.name);
                     village.find('a').text(value.name);
                     village.find('div.panel-body').html('<ul></ul>')
-                    var village_desc = $('<li><a href="#">村情介绍</a></li><li><a href="#">村班子介绍</a></li>');
+                    var village_desc = $('<li><a href="#" onclick="load_article(' + (value.id + 10) + ')">村情介绍</a></li><li><a href="#" onclick="load_article(' + (value.id + 30) + ')">村班子介绍</a></li>');
                     village.find('ul').append(village_desc);
                     
                     town.find('.panel-group').append(village);
@@ -234,6 +240,8 @@
                             var person = $('<li><a href="#"></a></li>');
                             person.find('a').text(value.xingming);
                             person.click(function() {
+                                $('.paper').hide();
+                                $('#baseInfo').show();
                                 $('#xingming').text(value.xingming);
                                 $('#minzu').text(value.minzu);
                                 $('#zhen').text(value.zhen);
@@ -254,7 +262,17 @@
             }
         });
         
-        
+    
+        function load_article(article_id) {
+            $('.paper').hide();
+            $('#article').show();
+            db.get('select * from article where `id`=?', article_id, function(err, row) {
+                if(row) {
+                    $('#article').find('h3').text(row.title);
+                    $('#article').find('div').html(row.content);
+                }   
+            });  
+        }
     </script>
 </body>
 </html>
